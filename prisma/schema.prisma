@@ -13,9 +13,16 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum OrderStatus {
+  Processing
+  Shipped
+  Delivered
+  Cancelled
+}
+
 model Order {
-  id           Int      @id @default(autoincrement())
+  id           Int         @id @default(autoincrement())
   customerName String
-  status       String
-  createdAt    DateTime @default(now())
+  status       OrderStatus @default(Processing)
+  createdAt    DateTime    @default(now())
 }

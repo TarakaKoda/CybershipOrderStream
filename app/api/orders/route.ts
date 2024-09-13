@@ -1,6 +1,7 @@
-import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/prisma/client";
+import { orderSchema } from "@/validationSchemas";
 import { OrderStatus } from "@prisma/client";
+import { NextRequest, NextResponse } from "next/server";
 
 // GET endpoint
 export async function GET(request: NextRequest) {
@@ -69,11 +70,10 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
 
     // Validate request body
-    if (!body.customerName || typeof body.customerName !== 'string') {
-      return NextResponse.json(
-        { error: "Invalid input" },
-        { status: 400 }
-      );
+    const validation = orderSchema.safeParse(body);
+
+    if (!validation.success) {
+      return NextResponse.json({ error: validation.error }, { status: 400 });
     }
 
     // Create new order with default status 'Processing'

@@ -1,13 +1,14 @@
-import FilterButton from "./FilterButton";
+"use client";
 import { BiSortAlt2 } from "react-icons/bi";
+import { FaSearch } from "react-icons/fa";
 import { IoFilterSharp } from "react-icons/io5";
 import { MdRefresh } from "react-icons/md";
-import { FaSearch } from "react-icons/fa";
+import AddCustomerButton from "./AddCustomerButton";
+import FilterButton from "./FilterButton";
 
 const OrderFilters = () => {
   const handleAllOrder = () => {};
   const handleUnFulFilled = () => {};
-  const handleAddNewCustomer = () => {};
 
   const leftFilterButtons = [
     {
@@ -21,13 +22,6 @@ const OrderFilters = () => {
       title: "Unfullfilled",
       handleClick: handleUnFulFilled,
       className: "w-15 text-sm bg-[#0F0F10]",
-    },
-    {
-      id: 3,
-      title: "+",
-      handleClick: handleAddNewCustomer,
-      className:
-        "text-xl text-black bg-white hover:bg-[#333337] hover:text-white",
     },
   ];
 
@@ -57,8 +51,7 @@ const OrderFilters = () => {
       id: 4,
       title: <FaSearch />,
       handleClick: handleAllOrder,
-      className:
-        "text-white bg-[#0F0F10] hover:bg-white hover:text-black",
+      className: "text-white bg-[#0F0F10] hover:bg-white hover:text-black",
     },
   ];
 
@@ -73,6 +66,7 @@ const OrderFilters = () => {
             className={button.className}
           />
         ))}
+        <AddCustomerButton />
       </div>
       <div className="w-full flex gap-3 justify-end">
         {rightFilterButtons.map((button) => (

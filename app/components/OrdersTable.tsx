@@ -1,5 +1,7 @@
+"use client";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { OrderStatus } from "@prisma/client";
-import React from "react";
 import { Column, useTable } from "react-table";
 import {
   Table,
@@ -18,11 +20,18 @@ interface Order {
   createdAt: string;
 }
 
-interface OrderTableProps {
-  data: Order[];
-}
+const OrdersTable: React.FC = () => {
+  const [orders, setOrders] = useState<Order[]>([]);
+  useEffect(() => {
+    // Fetch the orders from the backend
+    const fetchOrders = async () => {
+      const response = await axios.get("/api/orders");
+      const data = await response.data;
+      setOrders(data.data); // Assuming 'data' is the structure returned by your API
+    };
 
-const OrdersTable: React.FC<OrderTableProps> = ({ data }) => {
+    fetchOrders();
+  }, []);
   const columns: Column<Order>[] = React.useMemo(
     () => [
       {
@@ -48,16 +57,13 @@ const OrdersTable: React.FC<OrderTableProps> = ({ data }) => {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable({
       columns,
-      data,
+      data: orders,
     });
 
   return (
     <Table {...getTableProps()} className="w-full">
-      {/* Table Caption (optional) */}
-      <TableCaption>Your orders data overview</TableCaption>
-
       {/* Table Header */}
-      <TableHeader className="bg-[#141417] header-top">
+      <TableHeader className="bg-[#141417]">
         {headerGroups.map((headerGroup) => (
           <TableRow
             {...headerGroup.getHeaderGroupProps()}
@@ -76,12 +82,12 @@ const OrdersTable: React.FC<OrderTableProps> = ({ data }) => {
       </TableHeader>
 
       {/* Table Body */}
-      <TableBody className="text-white" {...getTableBodyProps()}>
+      <TableBody className="text-white border-0" {...getTableBodyProps()}>
         {rows.map((row) => {
           prepareRow(row);
           return (
             <TableRow
-              className="border border-b border-white"
+              className="border-white"
               {...row.getRowProps()}
               key={row.id}>
               {row.cells.map((cell) => (

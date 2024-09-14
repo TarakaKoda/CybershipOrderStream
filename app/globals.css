@@ -115,4 +115,8 @@
   .common-container {
     @apply  custom-scrollbar
   }
+
+  .header-top {
+    border-radius: 20px;
+  }
 }

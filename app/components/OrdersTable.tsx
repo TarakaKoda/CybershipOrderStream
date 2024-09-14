@@ -1,6 +1,15 @@
 import { OrderStatus } from "@prisma/client";
 import React from "react";
-import { useTable, Column } from "react-table";
+import { Column, useTable } from "react-table";
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"; // Assuming this is the ShadCN table components
 
 interface Order {
   id: number;
@@ -43,33 +52,48 @@ const OrdersTable: React.FC<OrderTableProps> = ({ data }) => {
     });
 
   return (
-    <table {...getTableProps()} style={{ border: 'solid 1px blue' }}>
-    <thead>
-      {headerGroups.map((headerGroup) => (
-        <tr {...headerGroup.getHeaderGroupProps()} key={headerGroup.id}>
-          {headerGroup.headers.map((column) => (
-            <th {...column.getHeaderProps()} key={column.id}>
-              {column.render('Header')}
-            </th>
-          ))}
-        </tr>
-      ))}
-    </thead>
-    <tbody {...getTableBodyProps()}>
-      {rows.map((row) => {
-        prepareRow(row);
-        return (
-          <tr {...row.getRowProps()} key={row.id}>
-            {row.cells.map((cell) => (
-              <td {...cell.getCellProps()} key={cell.column.id}>
-                {cell.render('Cell')}
-              </td>
+    <Table {...getTableProps()} className="w-full">
+      {/* Table Caption (optional) */}
+      <TableCaption>Your orders data overview</TableCaption>
+
+      {/* Table Header */}
+      <TableHeader className="bg-[#141417] header-top">
+        {headerGroups.map((headerGroup) => (
+          <TableRow
+            {...headerGroup.getHeaderGroupProps()}
+            key={headerGroup.id}
+            className="">
+            {headerGroup.headers.map((column) => (
+              <TableHead
+                {...column.getHeaderProps()}
+                key={column.id}
+                className="p-2 text-left text-[#B5B5BB]">
+                {column.render("Header")}
+              </TableHead>
             ))}
-          </tr>
-        );
-      })}
-    </tbody>
-  </table>
+          </TableRow>
+        ))}
+      </TableHeader>
+
+      {/* Table Body */}
+      <TableBody className="text-white" {...getTableBodyProps()}>
+        {rows.map((row) => {
+          prepareRow(row);
+          return (
+            <TableRow
+              className="border border-b border-white"
+              {...row.getRowProps()}
+              key={row.id}>
+              {row.cells.map((cell) => (
+                <TableCell {...cell.getCellProps()} key={cell.column.id}>
+                  {cell.render("Cell")}
+                </TableCell>
+              ))}
+            </TableRow>
+          );
+        })}
+      </TableBody>
+    </Table>
   );
 };
 

@@ -16,12 +16,12 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { orderSchema } from "@/validationSchemas";
+import { orderSchema } from "@/lib/validationSchemas";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 
 export default function SignInForm() {
-  const router = useRouter(); // Ensure useRouter is available in the client
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -35,12 +35,13 @@ export default function SignInForm() {
 
   const onSubmit = async (values: z.infer<typeof orderSchema>) => {
     setIsLoading(true);
+    setError("");
     try {
       const result = await axios.post("/api/orders", values);
       console.log(result);
       router.push("/orders");
-    } catch (error) {
-      console.error(error);
+    } catch (err) {
+      console.error(err);
       setError("An error occurred while creating the order.");
     } finally {
       setIsLoading(false);
@@ -60,7 +61,6 @@ export default function SignInForm() {
           <FormField
             control={form.control}
             name="customerName"
-            disabled={isLoading}
             render={({ field }) => (
               <FormItem>
                 <LabelInputContainer className="text-white">

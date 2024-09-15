@@ -1,5 +1,5 @@
 import { prisma } from "@/prisma/client";
-import { orderSchema } from "@/validationSchemas";
+import { orderSchema } from "@/lib/validationSchemas";
 import { OrderStatus } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 

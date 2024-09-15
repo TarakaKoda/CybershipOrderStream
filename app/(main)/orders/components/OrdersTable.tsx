@@ -1,17 +1,18 @@
 "use client";
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { OrderStatus } from "@prisma/client";
-import { Column, useTable } from "react-table";
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"; // Assuming this is the ShadCN table components
+} from "@/components/ui/table";
+import { OrderStatus } from "@prisma/client";
+import axios from "axios";
+import { error } from "console";
+import { useSearchParams } from "next/navigation";
+import React, { useEffect, useState } from "react";
+import { Column, useTable } from "react-table";
 
 interface Order {
   id: number;
@@ -20,18 +21,31 @@ interface Order {
   createdAt: string;
 }
 
-const OrdersTable: React.FC = () => {
+const OrdersTable = () => {
   const [orders, setOrders] = useState<Order[]>([]);
+  const searchParams = useSearchParams();
   useEffect(() => {
     // Fetch the orders from the backend
     const fetchOrders = async () => {
-      const response = await axios.get("/api/orders");
-      const data = await response.data;
-      setOrders(data.data); // Assuming 'data' is the structure returned by your API
+      try {
+        const params = new URLSearchParams();
+        const status = searchParams.get("status");
+        if (status) {
+          params.append("status", status);
+        }
+        console.log(params.toString());
+        const response = await axios.get(`/api/orders?${params.toString()}`);
+
+        const data = await response.data;
+        setOrders(data.data);
+      } catch (error) {
+        console.log(error);
+      }
     };
 
     fetchOrders();
-  }, []);
+  }, [searchParams]);
+
   const columns: Column<Order>[] = React.useMemo(
     () => [
       {
@@ -62,13 +76,9 @@ const OrdersTable: React.FC = () => {
 
   return (
     <Table {...getTableProps()} className="w-full">
-      {/* Table Header */}
       <TableHeader className="bg-[#141417]">
-        {headerGroups.map((headerGroup) => (
-          <TableRow
-            {...headerGroup.getHeaderGroupProps()}
-            key={headerGroup.id}
-            className="">
+        {headerGroups.map((headerGroup, index) => (
+          <TableRow {...headerGroup.getHeaderGroupProps()} key={index}>
             {headerGroup.headers.map((column) => (
               <TableHead
                 {...column.getHeaderProps()}

@@ -27,7 +27,7 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "*.ts",
-    "app/components/OrdersTable.tsx"
+    "app/(main)/orders/components/OrdersTable.tsx"
   ],
   "exclude": ["node_modules"]
 }

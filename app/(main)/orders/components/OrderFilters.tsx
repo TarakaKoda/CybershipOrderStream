@@ -22,7 +22,7 @@ const OrderFilters = ({ searchParams: { status, sortOrder } }: Props) => {
   }
 
   const getSortOrder = (sortOrder: string | undefined): string => {
-    return sortOrder === "asc" ? "dsc" : "asc";
+    return sortOrder === "asc" ? "desc" : "asc";
   };
 
   return (
@@ -78,7 +78,7 @@ const OrderFilters = ({ searchParams: { status, sortOrder } }: Props) => {
                 : "bg-[#0F0F10]"
             }`}>
             {!sortOrder && <BiSortAlt2 />}
-            {sortOrder === "dsc" ? (
+            {sortOrder === "desc" ? (
               <FaSortAlphaUp />
             ) : sortOrder === "asc" ? (
               <FaSortAlphaDown />

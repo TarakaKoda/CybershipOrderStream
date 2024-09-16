@@ -1,3 +1,4 @@
+"use client";
 import { cn } from "@/lib/utils";
 import React, { useEffect, useRef } from "react";
 import { createNoise3D } from "simplex-noise";
@@ -242,8 +243,7 @@ export const Vortex = (props: VortexProps) => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         ref={containerRef}
-        className="absolute h-full w-full inset-0 z-0 bg-transparent flex items-center justify-center"
-      >
+        className="absolute h-full w-full inset-0 z-0 bg-transparent flex items-center justify-center">
         <canvas ref={canvasRef}></canvas>
       </motion.div>
 

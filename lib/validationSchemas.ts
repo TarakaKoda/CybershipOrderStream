@@ -8,3 +8,9 @@ export const orderSchema = z.object({
     .max(30, { message: "Customer name cannot be more than 30 characters." }),
   status: z.nativeEnum(OrderStatus).optional().default(OrderStatus.Processing),
 });
+
+export const SearchSchema = z.object({
+  searchCustomer: z
+    .string()
+    .max(30, { message: "Customer name cannot be more than 30 characters." }),
+});

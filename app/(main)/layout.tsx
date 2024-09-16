@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { Hero } from "../components/Hero";
+// import { Hero } from "../components/Hero";
 // import { Vortex } from "@/components/aceternity-ui/vortex";
 const layout = ({ children }: { children: ReactNode }) => {
   return (
@@ -10,10 +10,10 @@ const layout = ({ children }: { children: ReactNode }) => {
         particleCount={100}
         baseHue={120}
         className="flex items-center flex-col justify-center w-full h-full"> */}
-      <div className="flex flex-col justify-start items-center rounded-md  pt-5 w-full h-full">
-        {/* <Hero /> */}
-        {children}
-      </div>
+        <div className="flex flex-col justify-start items-center rounded-md  pt-5 w-full h-full">
+          {/* <Hero /> */}
+          {children}
+        </div>
       {/* </Vortex> */}
     </div>
   );

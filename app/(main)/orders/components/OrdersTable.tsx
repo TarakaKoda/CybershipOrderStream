@@ -8,6 +8,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { formatDateString } from "@/lib/utils";
 import { OrderStatus } from "@prisma/client";
 import axios from "axios";
 import { useSearchParams } from "next/navigation";
@@ -68,7 +69,7 @@ const OrdersTable = () => {
       },
       {
         Header: "Created At",
-        accessor: "createdAt",
+        accessor: (row) => formatDateString(row.createdAt)
       },
     ],
     []

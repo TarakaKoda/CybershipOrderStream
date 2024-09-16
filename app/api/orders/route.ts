@@ -9,8 +9,13 @@ export async function GET(request: NextRequest) {
   const page = Number(searchParams.get("page") ?? 1);
   const pageSize = Number(searchParams.get("pageSize") ?? 10);
   const status = searchParams.get("status");
+  const sortOrder = searchParams.get("sortOrder") ?? "asc";
+  const searchQuery = searchParams.get("search") ?? "";
 
-  const where: { status?: OrderStatus } = {};
+  const where: {
+    status?: OrderStatus;
+    customerName?: { contains: string; mode: "insensitive" };
+  } = {};
 
   function mapStatus(status: string): OrderStatus | undefined {
     switch (status) {
@@ -34,11 +39,18 @@ export async function GET(request: NextRequest) {
     }
   }
 
+  if (searchQuery) {
+    where.customerName = { contains: searchQuery, mode: "insensitive" };
+  }
+
   try {
     const orders = await prisma.order.findMany({
       where,
       skip: (page - 1) * pageSize,
       take: pageSize,
+      orderBy: {
+        customerName: sortOrder === "asc" ? "asc" : "desc",
+      },
     });
 
     const totalOrders = await prisma.order.count({ where });

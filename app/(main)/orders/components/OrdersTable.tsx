@@ -8,14 +8,19 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { formatDateString } from "@/lib/utils";
+import { formatDateString, multiFormatDateString } from "@/lib/utils";
 import { OrderStatus } from "@prisma/client";
 import axios from "axios";
 import { useSearchParams } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import { Column, useTable } from "react-table";
+import { TbCalendarTime } from "react-icons/tb";
 
-interface Order {
+interface OrderTable {
+  time: ReactNode;
+}
+
+interface Order extends OrderTable {
   id: number;
   customerName: string;
   status: OrderStatus;
@@ -64,20 +69,26 @@ const OrdersTable = () => {
   const columns: Column<Order>[] = React.useMemo(
     () => [
       {
-        Header: "ID",
+        Header: <span>ID</span>,
         accessor: "id",
       },
       {
-        Header: "Customer Name",
+        Header: <TbCalendarTime />,
+        accessor: (row) => multiFormatDateString(row.createdAt),
+        id: "createdAtFormatted",
+      },
+      {
+        Header: <strong>Customer Name</strong>,
         accessor: "customerName",
       },
       {
-        Header: "Status",
+        Header: <span>Status</span>,
         accessor: "status",
       },
       {
-        Header: "Created At",
+        Header: <span>Created At</span>,
         accessor: (row) => formatDateString(row.createdAt),
+        id: "createdAt",
       },
     ],
     []

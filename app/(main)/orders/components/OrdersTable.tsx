@@ -30,7 +30,7 @@ interface Order extends OrderTable {
 const OrdersTable = () => {
   const [orders, setOrders] = useState<Order[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
+  const [pageSize] = useState(10);
   const [totalPages, setTotalPages] = useState(1);
   const searchParams = useSearchParams();
 

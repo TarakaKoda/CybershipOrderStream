@@ -7,7 +7,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter} from "next/navigation";
 import { useState } from "react";
 import { IoFilterSharp } from "react-icons/io5";
 
@@ -16,7 +16,6 @@ interface Props {
 }
 
 const StatusFilter = ({ searchParams: { status } }: Props) => {
-  const searchParams = useSearchParams();
   const router = useRouter();
 
   // Introduce local state to manage selected value

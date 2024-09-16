@@ -1,6 +1,13 @@
 import CustomerForm from "@/app/components/forms/CustomerForm";
 import { GlobeDemo } from "./Globe";
 
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Cybership - New Order",
+  description: "Place new orders now!",
+};
+
 const page = () => {
   return (
     <div className="flex w-full  justify-around items-center">

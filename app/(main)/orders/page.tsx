@@ -1,9 +1,16 @@
 import OrderFilters from "./components/OrderFilters";
 import OrdersTable from "./components/OrdersTable";
+import { Metadata } from "next";
 
 interface Props {
   searchParams: { status?: string; sortOrder?: string };
 }
+
+export const metadata: Metadata = {
+  title: "Cybership - Orders List",
+  description:
+    "List of all orders. Stay updated with real-time order statuses.",
+};
 
 const OrdersPage = ({ searchParams }: Props) => {
   return (

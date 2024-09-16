@@ -34,8 +34,16 @@ const OrdersTable = () => {
       try {
         const params = new URLSearchParams();
         const status = searchParams.get("status");
+        const sortOrder = searchParams.get("sortOrder");
+        const search = searchParams.get("search");
         if (status) {
           params.append("status", status);
+        }
+        if (search) {
+          params.append("search", search);
+        }
+        if (sortOrder) {
+          params.append("sortOrder", sortOrder);
         }
         params.append("page", currentPage.toString());
         params.append("pageSize", pageSize.toString());
@@ -69,7 +77,7 @@ const OrdersTable = () => {
       },
       {
         Header: "Created At",
-        accessor: (row) => formatDateString(row.createdAt)
+        accessor: (row) => formatDateString(row.createdAt),
       },
     ],
     []

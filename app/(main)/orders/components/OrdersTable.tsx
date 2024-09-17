@@ -122,7 +122,9 @@ const OrdersTable = () => {
                 <TableHead
                   {...column.getHeaderProps()}
                   key={column.id}
-                  className="p-2 text-left text-[#B5B5BB]">
+                  className={`p-2 md:p-4 text-left text-xs md:text-sm text-[#B5B5BB] ${
+                    column.id === "createdAt" ? "max-md:hidden" : ""
+                  }`}>
                   {column.render("Header")}
                 </TableHead>
               ))}
@@ -138,7 +140,12 @@ const OrdersTable = () => {
                 {...row.getRowProps()}
                 key={row.id}>
                 {row.cells.map((cell) => (
-                  <TableCell {...cell.getCellProps()} key={cell.column.id}>
+                  <TableCell
+                    {...cell.getCellProps()}
+                    key={cell.column.id}
+                    className={`p-2 md:p-4 text-xs md:text-sm ${
+                      cell.column.id === "createdAt" ? "max-md:hidden" : ""
+                    }`}>
                     {cell.render("Cell")}
                   </TableCell>
                 ))}

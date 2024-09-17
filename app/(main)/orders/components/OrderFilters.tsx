@@ -26,7 +26,7 @@ const OrderFilters = ({ searchParams: { status, sortOrder } }: Props) => {
   };
 
   return (
-    <div className="w-full flex justify-between items-center">
+    <div className="w-full max-md:hidden flex justify-between items-center">
       <div className="w-full flex gap-3">
         <Link
           href={`${

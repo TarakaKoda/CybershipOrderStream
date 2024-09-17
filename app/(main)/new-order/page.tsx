@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 const page = () => {
   return (
     <div className="flex w-full  justify-around items-center">
-      <div className="flex flex-col items-center justify-evenly">
+      <div className="flex flex-col max-lg:p-5 max-lg:h-screen items-center justify-evenly">
         <h2 className="text-white text-5xl">Create New Order</h2>
         <CustomerForm />
       </div>

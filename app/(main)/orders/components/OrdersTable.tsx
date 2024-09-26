@@ -113,8 +113,8 @@ const OrdersTable = () => {
   };
 
   return (
-    <div className="w-full min-h-[38vw] flex justify-between flex-col gap-5">
-      <Table {...getTableProps()} className="w-full">
+    <div className="w-full min-h-[38vw] common-container custom-scrollbar flex justify-between flex-col gap-5">
+      <Table {...getTableProps()} className="w-full custom-scrollbar ">
         <TableHeader className="bg-[#141417]">
           {headerGroups.map((headerGroup, index) => (
             <TableRow {...headerGroup.getHeaderGroupProps()} key={index}>
@@ -122,7 +122,7 @@ const OrdersTable = () => {
                 <TableHead
                   {...column.getHeaderProps()}
                   key={column.id}
-                  className={`p-2 md:p-4 text-left text-xs md:text-sm text-[#B5B5BB] ${
+                  className={`p-2 md:p-2 text-left text-xs md:text-sm text-[#B5B5BB] ${
                     column.id === "createdAt" ? "max-md:hidden" : ""
                   }`}>
                   {column.render("Header")}
@@ -131,19 +131,19 @@ const OrdersTable = () => {
             </TableRow>
           ))}
         </TableHeader>
-        <TableBody className="text-white border-0" {...getTableBodyProps()}>
+        <TableBody className="text-white common-container custom-scrollbar text-[0.50rem] border-0" {...getTableBodyProps()}>
           {rows.map((row) => {
             prepareRow(row);
             return (
               <TableRow
-                className="border-white"
+                className="border-white text-xs"
                 {...row.getRowProps()}
                 key={row.id}>
                 {row.cells.map((cell) => (
                   <TableCell
                     {...cell.getCellProps()}
                     key={cell.column.id}
-                    className={`p-2 md:p-4 text-xs md:text-sm ${
+                    className={`p-2 md:p-4 text-xs md:text-xs ${
                       cell.column.id === "createdAt" ? "max-md:hidden" : ""
                     }`}>
                     {cell.render("Cell")}

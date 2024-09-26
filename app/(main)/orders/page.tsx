@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 
 const OrdersPage = ({ searchParams }: Props) => {
   return (
-    <div className="border border-[#333337] p-6 flex-col flex items-center justify-start gap-2  shadow-neumorphic  w-[80vw]  bg-[#0F0F10] h-screen my-5  rounded-xl">
+    <div className="border border-[#333337] p-6 flex-col flex items-center justify-start gap-2  shadow-neumorphic  w-[80vw]  bg-[#0F0F10] h-[90vh] my-5 rounded-xl">
       <OrderFilters searchParams={searchParams} />
       <OrdersTable />
     </div>

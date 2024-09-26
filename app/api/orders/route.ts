@@ -3,7 +3,6 @@ import { orderSchema } from "@/lib/validationSchemas";
 import { OrderStatus } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 
-// GET endpoint
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
   const page = Number(searchParams.get("page") ?? 1);
@@ -76,23 +75,20 @@ export async function GET(request: NextRequest) {
   }
 }
 
-// POST endpoint
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
 
-    // Validate request body
     const validation = orderSchema.safeParse(body);
 
     if (!validation.success) {
       return NextResponse.json({ error: validation.error }, { status: 400 });
     }
 
-    // Create new order with default status 'Processing'
     const newOrder = await prisma.order.create({
       data: {
         customerName: body.customerName,
-        status: OrderStatus.Processing, // Set default status
+        status: OrderStatus.Processing,
       },
     });
 
